@@ -1,0 +1,7 @@
+[build]
+dockerfilePath = "infra/docker/Dockerfile.backend"
+dockerContext   = "backend"
+
+[deploy]
+startCommand = "celery -A app.core.celery_app worker -Q ingestion,default --loglevel=info --concurrency=2"
+restartPolicyType = "ON_FAILURE"

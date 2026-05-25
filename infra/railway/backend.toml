@@ -1,0 +1,9 @@
+[build]
+dockerfilePath = "infra/docker/Dockerfile.backend"
+dockerContext   = "backend"
+
+[deploy]
+startCommand     = "uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2"
+healthcheckPath  = "/health"
+healthcheckTimeout = 30
+restartPolicyType  = "ON_FAILURE"

@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: #378ADD;
+  --brand-dark: #185FA5;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+/* Smooth scrollbar */
+* { scrollbar-width: thin; scrollbar-color: #d1d5db transparent; }
+*::-webkit-scrollbar { width: 6px; }
+*::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }

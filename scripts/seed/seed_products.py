@@ -19,7 +19,7 @@ import json
 import random
 import sys
 from pathlib import Path
-
+from sqlalchemy.orm import selectinload 
 # Add backend to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "backend"))
 
@@ -359,7 +359,9 @@ async def seed(products_data: list[dict], embed: bool = False) -> None:
             from sqlalchemy import select
             print("Generating embeddings (中英双语向量化)...")
             result = await db.execute(
-                select(Product).where(Product.id.notin_(
+                select(Product)
+                .options(selectinload(Product.compatible_vehicles))
+                .where(Product.id.notin_(
                     select(ProductEmbedding.product_id)
                 ))
             )

@@ -30,7 +30,7 @@ pypdf==4.2.0                   # PDF parsing
 python-docx==1.1.0             # Word document parsing
 pillow==11.2.1                 # image handling
 # python-magic==0.4.27  # Windows用python-magic-bin替代           # file type detection
-
+aiofiles==23.2.1 
 # ─── Async Task Queue ────────────────────────────────────────
 celery==5.4.0
 redis==5.0.4

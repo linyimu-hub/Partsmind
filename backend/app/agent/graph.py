@@ -25,26 +25,23 @@ Every node execution, LLM call, and tool call is captured.
 """
 
 import json
-import time
 from typing import Any
 
-from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.agent.state import AgentState
 from app.agent.prompts.templates import (
-    SYSTEM_PROMPT,
     INTENT_CLASSIFIER_PROMPT,
     SYNTHESIZER_PROMPT,
-    LOW_CONFIDENCE_PROMPT,
-    PROMPT_VERSIONS,
+    SYSTEM_PROMPT,
 )
-from app.agent.tools.vision_tool import run_vision_tool
-from app.agent.tools.search_tool import hybrid_search, semantic_search, embed_text
+from app.agent.state import AgentState
 from app.agent.tools.document_search_tool import search_documents
-from app.agent.tools.lookup_tool import lookup_products, check_vehicle_compatibility
+from app.agent.tools.lookup_tool import check_vehicle_compatibility, lookup_products
+from app.agent.tools.search_tool import hybrid_search
+from app.agent.tools.vision_tool import run_vision_tool
 from app.core.config import settings
 from app.core.logging import get_logger
 
@@ -304,10 +301,10 @@ async def synthesize(state: AgentState, db: AsyncSession) -> dict[str, Any]:
     system_msg = SystemMessage(
         content=SYSTEM_PROMPT.format(company_name="源尧兴实业")
     )
-    
+
     # 构建包含历史对话的消息列表
     messages = [system_msg]
-    
+
     # 加入历史对话（最近5轮，避免context过长）
     history = state.get("chat_history", [])
     for h in history[-10:]:   # 最近10条消息（5轮对话）
@@ -316,7 +313,7 @@ async def synthesize(state: AgentState, db: AsyncSession) -> dict[str, Any]:
         elif h["role"] == "assistant":
             from langchain_core.messages import AIMessage
             messages.append(AIMessage(content=h["content"]))
-    
+
     # 当前问题
     user_msg = HumanMessage(
         content=SYNTHESIZER_PROMPT.format(

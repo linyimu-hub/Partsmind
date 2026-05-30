@@ -15,18 +15,14 @@ Run:
 CI: only run weekly (not on every PR — too slow + expensive)
 """
 
-import asyncio
-import json
-import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
+from unittest.mock import AsyncMock, patch
 
-from tests.evaluation.eval_dataset import EVAL_DATASET, EvalCase
+import pytest
+from tests.evaluation.eval_dataset import EvalCase
 from tests.evaluation.evaluator import (
     check_keywords,
     evaluate_case,
-    EvalResult,
 )
-
 
 # ── Fast keyword-only tests (no API calls) ────────────────────────────────────
 # These run on every PR. They're not as thorough as LLM judge

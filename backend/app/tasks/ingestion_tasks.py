@@ -26,12 +26,12 @@ import uuid
 from pathlib import Path
 
 import sqlalchemy as sa
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.core.celery_app import celery_app
 from app.core.config import settings
 from app.core.logging import get_logger
-from app.models.document import Document, DocumentChunk, DocEmbedding, DocumentStatus
+from app.models.document import DocEmbedding, Document, DocumentChunk, DocumentStatus
 from app.services.document_parser import parse_document
 from app.services.embedding_service import embed_texts
 
@@ -115,7 +115,7 @@ async def _process_document_async(task, document_id: str) -> dict:
                 sa.delete(DocumentChunk).where(DocumentChunk.document_id == doc_uuid)
             )
 
-            for i, (chunk, vector) in enumerate(zip(parsed.chunks, embeddings)):
+            for i, (chunk, vector) in enumerate(zip(parsed.chunks, embeddings, strict=False)):
                 db_chunk = DocumentChunk(
                     document_id=doc_uuid,
                     content=chunk.content,

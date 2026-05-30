@@ -56,7 +56,7 @@ async def semantic_search(
 
     # Build dynamic WHERE clause for filters
     filters = ["1=1"]
-    
+
     embedding_literal = '[' + ','.join(str(x) for x in query_embedding) + ']'
     params: dict[str, Any] = {
         "embedding": embedding_literal,

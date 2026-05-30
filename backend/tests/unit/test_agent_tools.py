@@ -3,11 +3,11 @@ Unit tests for Agent tools.
 All external calls (OpenAI, DB) are mocked.
 """
 
-import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from app.agent.tools.lookup_tool import check_vehicle_compatibility
+import pytest
 
+from app.agent.tools.lookup_tool import check_vehicle_compatibility
 
 # ── Compatibility tool (pure function, no mocks needed) ───────────────────────
 SAMPLE_PRODUCT = {

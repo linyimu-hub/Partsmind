@@ -8,6 +8,7 @@ GET  /chat/sessions/{id}
 POST /chat/feedback
 """
 from uuid import UUID
+
 from fastapi import APIRouter, Depends, status
 from fastapi.responses import StreamingResponse
 from sqlalchemy import func, select
@@ -19,8 +20,11 @@ from app.models.chat import ChatMessage, ChatSession
 from app.models.feedback import Feedback
 from app.models.user import User
 from app.schemas.chat import (
-    AgentResponse, ChatMessageResponse, ChatRequest,
-    ChatSessionResponse, FeedbackRequest,
+    AgentResponse,
+    ChatMessageResponse,
+    ChatRequest,
+    ChatSessionResponse,
+    FeedbackRequest,
 )
 from app.services.chat_service import ChatService
 

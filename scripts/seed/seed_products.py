@@ -15,7 +15,6 @@ Seed the database with auto parts data.
 import argparse
 import asyncio
 import csv
-import json
 import random
 import sys
 from pathlib import Path

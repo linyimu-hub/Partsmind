@@ -1,14 +1,20 @@
-from app.schemas.user import (
-    UserCreate, UserUpdate, UserResponse, LoginRequest, TokenResponse
+from app.schemas.chat import (
+    AgentResponse,
+    ChatMessageResponse,
+    ChatRequest,
+    ChatSessionResponse,
+    FeedbackRequest,
+    SourceReference,
 )
 from app.schemas.product import (
-    ProductCreate, ProductUpdate, ProductResponse,
-    SearchResult, ImageSearchRequest, VehicleCompatibility
+    ImageSearchRequest,
+    ProductCreate,
+    ProductResponse,
+    ProductUpdate,
+    SearchResult,
+    VehicleCompatibility,
 )
-from app.schemas.chat import (
-    ChatRequest, AgentResponse, ChatMessageResponse,
-    ChatSessionResponse, SourceReference, FeedbackRequest
-)
+from app.schemas.user import LoginRequest, TokenResponse, UserCreate, UserResponse, UserUpdate
 
 __all__ = [
     "UserCreate", "UserUpdate", "UserResponse", "LoginRequest", "TokenResponse",

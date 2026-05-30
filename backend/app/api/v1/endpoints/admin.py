@@ -9,7 +9,7 @@ GET /admin/analytics/failures   — low-confidence + downvoted answers
 GET /admin/documents            — document management
 """
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import sqlalchemy as sa
@@ -18,7 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps.auth import require_admin
 from app.db.session import get_db
-from app.models.chat import ChatMessage, ChatSession
+from app.models.chat import ChatMessage
 from app.models.document import Document, DocumentStatus
 from app.models.feedback import Feedback
 from app.models.product import Product
@@ -37,7 +37,7 @@ async def get_overview(
     Dashboard overview metrics for the last N days.
     This is what you show in the live demo to impress the interviewer.
     """
-    since = datetime.now(timezone.utc) - timedelta(days=days)
+    since = datetime.now(UTC) - timedelta(days=days)
 
     # Total queries
     total_q = await db.scalar(

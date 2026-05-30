@@ -12,6 +12,7 @@ Usage: called once at startup in app/main.py lifespan
 """
 
 import os
+
 from app.core.config import settings
 from app.core.logging import get_logger
 
@@ -26,9 +27,9 @@ def setup_sentry() -> None:
 
     try:
         import sentry_sdk
+        from sentry_sdk.integrations.celery import CeleryIntegration
         from sentry_sdk.integrations.fastapi import FastApiIntegration
         from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
-        from sentry_sdk.integrations.celery import CeleryIntegration
 
         sentry_sdk.init(
             dsn=settings.sentry_dsn,

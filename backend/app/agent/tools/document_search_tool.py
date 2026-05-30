@@ -8,10 +8,10 @@ RAG: 从文档库中检索相关 chunk。
 """
 
 from typing import Any
+
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.config import settings
 from app.core.logging import get_logger
 from app.services.embedding_service import embed_single
 
@@ -26,7 +26,6 @@ async def search_documents(
 ) -> list[dict[str, Any]]:
     """
     在文档库中按语义相似度检索 top-K 个 chunk。
-    
     返回:
         [
           {

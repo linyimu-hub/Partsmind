@@ -17,7 +17,6 @@ Each chunk carries metadata (page, section) for citation display.
 import io
 import re
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Any
 
 from app.core.logging import get_logger
@@ -103,7 +102,7 @@ def parse_docx(file_bytes: bytes) -> ParsedDocument:
     # 提取段落 + 表格，按文档顺序遍历
     from docx.oxml.ns import qn
     body = doc.element.body
-    
+
     for child in body.iterchildren():
         # 段落
         if child.tag == qn('w:p'):
@@ -125,7 +124,7 @@ def parse_docx(file_bytes: bytes) -> ParsedDocument:
                 "section": current_section,
                 "is_heading": is_heading,
             })
-        
+
         # 表格
         elif child.tag == qn('w:tbl'):
             table_text_parts = []

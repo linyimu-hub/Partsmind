@@ -8,7 +8,7 @@ TimestampMixin adds created_at / updated_at automatically.
 """
 
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 
 from sqlalchemy import DateTime, func
 from sqlalchemy.dialects.postgresql import UUID

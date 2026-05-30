@@ -7,24 +7,24 @@ GET  /search/product/{id} — get single product details
 """
 
 import base64
+import uuid
 from typing import Any
 
+import sqlalchemy as sa
 from fastapi import APIRouter, Depends, File, Form, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.agent.tools.lookup_tool import lookup_products
+from app.agent.tools.search_tool import hybrid_search
+from app.agent.tools.vision_tool import run_vision_tool
 from app.api.deps.auth import get_current_user
 from app.core.config import settings
 from app.core.exceptions import UnsupportedFileTypeException
-from app.db.session import get_db
-from app.models.user import User
-from app.schemas.product import ImageSearchRequest, SearchResult
-from app.agent.tools.search_tool import hybrid_search
-from app.agent.tools.vision_tool import run_vision_tool
-from app.agent.tools.lookup_tool import lookup_products
 from app.core.logging import get_logger
-import uuid
-import sqlalchemy as sa
+from app.db.session import get_db
 from app.models.product import Product
+from app.models.user import User
+from app.schemas.product import ImageSearchRequest
 
 logger = get_logger(__name__)
 router = APIRouter()

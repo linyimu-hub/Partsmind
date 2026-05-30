@@ -15,7 +15,7 @@ DocEmbedding stores the vector (separate table = can re-embed without losing chu
 
 import enum
 import uuid
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import ForeignKey, Integer, String, Text

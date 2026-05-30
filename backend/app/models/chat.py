@@ -73,9 +73,11 @@ class ChatMessage(Base):
     # Which tools the agent called to produce this answer
     tools_used: Mapped[list[str] | None] = mapped_column(JSONB)
 
-    from app.db.base import TimestampMixin
     from datetime import datetime, timezone
+
     from sqlalchemy import DateTime, func
+
+    from app.db.base import TimestampMixin
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )

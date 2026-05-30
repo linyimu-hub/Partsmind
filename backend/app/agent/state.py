@@ -24,8 +24,8 @@ Data flow example:
 
 from __future__ import annotations
 
-from typing import Annotated, Any, TypedDict
 import operator
+from typing import Annotated, Any, TypedDict
 
 
 class AgentState(TypedDict, total=False):

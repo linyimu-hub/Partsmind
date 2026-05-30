@@ -90,7 +90,7 @@ def process_document(self, document_id: str) -> dict:
 
 async def _run_pipeline(document_id: UUID) -> dict:
     """Full async pipeline: parse → chunk → embed → store."""
-    from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+    from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
     engine = create_async_engine(settings.database_url)
     SessionLocal = async_sessionmaker(engine, expire_on_commit=False)
@@ -98,7 +98,8 @@ async def _run_pipeline(document_id: UUID) -> dict:
     async with SessionLocal() as db:
         # ── 1. Load document record ────────────────────────────
         from sqlalchemy import select
-        from app.models.document import Document, DocumentStatus, DocumentChunk, DocEmbedding
+
+        from app.models.document import DocEmbedding, Document, DocumentChunk, DocumentStatus
 
         result = await db.execute(select(Document).where(Document.id == document_id))
         document = result.scalar_one_or_none()
@@ -136,7 +137,7 @@ async def _run_pipeline(document_id: UUID) -> dict:
         embeddings = await _embed_in_batches(texts)
 
         # ── 6. Save chunks + embeddings ────────────────────────
-        for i, (parsed_chunk, embedding) in enumerate(zip(parsed.chunks, embeddings)):
+        for i, (parsed_chunk, embedding) in enumerate(zip(parsed.chunks, embeddings, strict=False)):
             db_chunk = DocumentChunk(
                 document_id=document_id,
                 content=parsed_chunk.content,
@@ -200,8 +201,9 @@ async def _embed_in_batches(texts: list[str]) -> list[list[float]]:
 
 async def _mark_failed(document_id: UUID, error_message: str) -> None:
     """Update document status to FAILED with error details."""
-    from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
     from sqlalchemy import select
+    from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
+
     from app.models.document import Document, DocumentStatus
 
     engine = create_async_engine(settings.database_url)

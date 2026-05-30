@@ -13,14 +13,13 @@ Design decisions:
   whether to proceed or ask user for a clearer image
 """
 
-import base64
 import json
 import time
 from typing import Any
 
-from openai import AsyncOpenAI, RateLimitError, APITimeoutError
+from openai import APITimeoutError, AsyncOpenAI, RateLimitError
 
-from app.agent.prompts.templates import VISION_IDENTIFY_PROMPT, PROMPT_VERSIONS
+from app.agent.prompts.templates import PROMPT_VERSIONS, VISION_IDENTIFY_PROMPT
 from app.core.config import settings
 from app.core.exceptions import LLMException
 from app.core.logging import get_logger

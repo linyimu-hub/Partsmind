@@ -7,7 +7,7 @@ Adding a new feature = add one line here.
 
 from fastapi import APIRouter
 
-from app.api.v1.endpoints import auth, search, chat, documents, admin
+from app.api.v1.endpoints import admin, auth, chat, documents, search
 
 api_router = APIRouter()
 

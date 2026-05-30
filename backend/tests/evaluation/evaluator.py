@@ -19,19 +19,18 @@ Output:
   Reports saved as JSON + printed as summary table
 """
 
-import asyncio
 import json
 import time
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from openai import AsyncOpenAI
+from tests.evaluation.eval_dataset import EVAL_DATASET, EvalCase
 
 from app.core.config import settings
 from app.core.logging import get_logger
-from tests.evaluation.eval_dataset import EvalCase, EVAL_DATASET
 
 logger = get_logger(__name__)
 _client = AsyncOpenAI(api_key=settings.openai_api_key)
@@ -274,7 +273,7 @@ async def run_evaluation(
 
     for i, case in enumerate(cases, 1):
         print(f"[{i}/{len(cases)}] {case.id} ({case.scenario}): {case.user_message[:60]}...")
-        t0 = time.monotonic()
+        _t0 = time.monotonic()
 
         try:
             agent_response = await agent_fn(case.user_message, case.has_image)
@@ -321,12 +320,12 @@ async def run_evaluation(
 
     # ── Print summary ──────────────────────────────────────────────
     print(f"\n{'='*60}")
-    print(f"RESULTS SUMMARY")
+    print("RESULTS SUMMARY")
     print(f"{'='*60}")
     print(f"Pass rate:      {report.pass_rate:.0%} ({report.passed_cases}/{report.total_cases})")
     print(f"Avg score:      {report.avg_overall_score:.3f}")
     print(f"Avg latency:    {report.avg_latency_ms:.0f}ms")
-    print(f"\nBy scenario:")
+    print("\nBy scenario:")
     for scenario, score in report.scores_by_scenario.items():
         print(f"  {scenario:<20} {score:.3f}")
     if report.failure_cases:

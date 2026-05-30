@@ -5,13 +5,13 @@ Tests are isolated — no real DB, no real tokens.
 We mock the DB session and verify behavior.
 """
 
-import pytest
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 
-from app.core.exceptions import UnauthorizedException, ValidationException
+import pytest
+
+from app.core.exceptions import UnauthorizedException
 from app.models.user import User, UserRole
-from app.schemas.user import UserCreate
 from app.services.auth_service import (
     AuthService,
     create_token_pair,

@@ -3,7 +3,6 @@ Unit test for Reciprocal Rank Fusion logic.
 Tests the ranking algorithm in isolation, no DB needed.
 """
 
-import pytest
 
 
 def reciprocal_rank_fusion(

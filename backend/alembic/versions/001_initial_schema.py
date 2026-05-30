@@ -4,8 +4,8 @@ Revision ID: 001
 Create Date: 2025-01-01
 """
 
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 from pgvector.sqlalchemy import Vector
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 

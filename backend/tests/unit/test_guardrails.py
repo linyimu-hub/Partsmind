@@ -3,8 +3,7 @@ Unit tests for guardrails — pure logic, no API calls.
 These run fast and protect against regression in safety logic.
 """
 
-import pytest
-from app.utils.guardrails import check_input, check_output, GuardrailResult
+from app.utils.guardrails import check_input, check_output
 
 
 class TestInputGuardrails:

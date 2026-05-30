@@ -2,13 +2,14 @@
 app/main.py — FastAPI application factory (production version)
 """
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 
 from app.core.config import settings
-from app.core.logging import get_logger, setup_logging
 from app.core.exceptions import register_exception_handlers
+from app.core.logging import get_logger, setup_logging
 from app.core.monitoring import setup_monitoring
 from app.db.session import init_db
 

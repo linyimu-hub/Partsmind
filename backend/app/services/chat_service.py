@@ -6,23 +6,22 @@ app/services/chat_service.py
 
 import json
 import time
-import uuid
 from uuid import UUID
 
-from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.agent.graph import (
+    _llm_generate,
     build_agent,
     classify_intent,
-    run_vision,
-    run_search,
     run_lookup,
-    _llm_generate,
+    run_search,
+    run_vision,
 )
+from app.agent.prompts.templates import SYNTHESIZER_PROMPT, SYSTEM_PROMPT
 from app.agent.state import AgentState
-from app.agent.prompts.templates import SYSTEM_PROMPT, SYNTHESIZER_PROMPT
 from app.core.config import settings
 from app.core.exceptions import AgentTimeoutException, NotFoundException
 from app.core.logging import get_logger

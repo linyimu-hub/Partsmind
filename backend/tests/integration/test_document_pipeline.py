@@ -3,19 +3,18 @@ Integration test for document ingestion pipeline.
 Tests parser + chunker without needing real DB or OpenAI.
 """
 
-import pytest
 import io
 
-from app.services.document_parser import (
-    parse_pdf,
-    parse_docx,
-    _split_into_segments,
-    _build_chunks_from_segments,
-    CHUNK_SIZE,
-    CHUNK_OVERLAP,
-    MIN_CHUNK_SIZE,
-)
+import pytest
 
+from app.services.document_parser import (
+    CHUNK_OVERLAP,
+    CHUNK_SIZE,
+    MIN_CHUNK_SIZE,
+    _build_chunks_from_segments,
+    _split_into_segments,
+    parse_docx,
+)
 
 # ── Unit tests for chunking logic (no external deps) ──────────────────────────
 

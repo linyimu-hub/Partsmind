@@ -13,7 +13,7 @@ Security decisions:
 - Token payload minimal: only user_id + role (avoids stale data issues)
 """
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 from jose import JWTError, jwt
@@ -42,8 +42,8 @@ def verify_password(plain: str, hashed: str) -> bool:
 
 def _create_token(data: dict, expires_delta: timedelta) -> str:
     payload = data.copy()
-    payload["exp"] = datetime.now(timezone.utc) + expires_delta
-    payload["iat"] = datetime.now(timezone.utc)
+    payload["exp"] = datetime.now(UTC) + expires_delta
+    payload["iat"] = datetime.now(UTC)
     return jwt.encode(payload, settings.secret_key, algorithm=settings.algorithm)
 
 

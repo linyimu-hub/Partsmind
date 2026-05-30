@@ -4,7 +4,7 @@
 
 **企业级汽车零配件 AI 搜货与智能问答平台**
 
-*为深圳市源尧兴实业有限公司业务场景设计并实现*
+
 
 [![CI](https://github.com/YOUR_USERNAME/partsmind/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/partsmind/actions)
 [![Python](https://img.shields.io/badge/Python-3.11-blue)](https://python.org)
